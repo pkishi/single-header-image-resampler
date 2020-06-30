@@ -35,6 +35,12 @@
 #include <cstdint>
 #include <memory>
 #include <string>
+#include <cstring>
+#include <cmath>
+
+using std::memcpy;
+using std::min;
+using std::max;
 
 #ifndef __BASE_TYPES_H__
 #define __BASE_TYPES_H__
@@ -49,7 +55,7 @@
 #include "sys/types.h"
 #include "unistd.h"
 #else
-#error "Unsupported target platform detected."
+#include "unistd.h"
 #endif
 
 namespace base {
