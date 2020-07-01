@@ -246,6 +246,8 @@ bool SampleKernelBilinear(uint8* src, uint32 src_width, uint32 src_height,
     case KernelDirectionVertical:
       return SampleKernelBilinearV(src, src_width, src_height, f_x, f_y,
                                    output);
+    default:
+      return 0;
   }
 
   return false;
@@ -266,7 +268,7 @@ bool SampleKernelBicubicH(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x + i;
     int32 i_y = (int32)f_y;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -309,7 +311,7 @@ bool SampleKernelBicubicV(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x;
     int32 i_y = (int32)f_y + i;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -346,8 +348,9 @@ bool SampleKernelBicubic(uint8* src, uint32 src_width, uint32 src_height,
     case KernelDirectionVertical:
       return SampleKernelBicubicV(src, src_width, src_height, f_x, f_y, coeff_b,
                                   coeff_c, output);
+    default:
+      return 0;
   }
-
   return false;
 }
 
@@ -367,7 +370,7 @@ bool SampleKernelLanczosH(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x + i;
     int32 i_y = (int32)f_y;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -411,7 +414,7 @@ bool SampleKernelLanczosV(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x;
     int32 i_y = (int32)f_y + i;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -449,7 +452,10 @@ bool SampleKernelLanczos(uint8* src, uint32 src_width, uint32 src_height,
     case KernelDirectionVertical:
       return SampleKernelLanczosV(src, src_width, src_height, f_x, f_y, coeff_a,
                                   output);
+    default:
+      return 0;
   }
+
 
   return false;
 }
@@ -471,7 +477,7 @@ bool SampleKernelAverageH(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x + i;
     int32 i_y = (int32)f_y;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -532,7 +538,7 @@ bool SampleKernelAverageV(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x;
     int32 i_y = (int32)f_y + i;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -593,7 +599,7 @@ bool SampleKernelGaussianH(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x + i;
     int32 i_y = (int32)f_y;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -638,7 +644,7 @@ bool SampleKernelGaussianV(uint8* src, uint32 src_width, uint32 src_height,
     int32 i_x = (int32)f_x;
     int32 i_y = (int32)f_y + i;
 
-    if (i_x < 0 || i_y < 0 || i_x > src_width - 1 || i_y > src_height - 1) {
+    if (i_x < 0 || i_y < 0 || i_x > int(src_width - 1) || i_y > int(src_height - 1)) {
       continue;
     }
 
@@ -676,6 +682,8 @@ bool SampleKernelAverage(uint8* src, uint32 src_width, uint32 src_height,
     case KernelDirectionVertical:
       return SampleKernelAverageV(src, src_width, src_height, f_x, f_y, v_ratio,
                                   output);
+    default:
+      return 0;
   }
 
   return false;
@@ -691,6 +699,8 @@ bool SampleKernelGaussian(uint8* src, uint32 src_width, uint32 src_height,
     case KernelDirectionVertical:
       return SampleKernelGaussianV(src, src_width, src_height, f_x, f_y,
                                    v_ratio, output);
+    default:
+      return 0;
   }
 
   return false;
@@ -764,6 +774,8 @@ bool SampleKernel(uint8* src, uint32 src_width, uint32 src_height,
     case KernelTypeGaussian:
       return SampleKernelGaussian(src, src_width, src_height, direction, f_x,
                                   f_y, h_ratio, v_ratio, output);
+    default:
+      return 0;
   }
 
   return false;
@@ -781,7 +793,7 @@ bool ResampleImage24(uint8* src, uint32 src_width, uint32 src_height,
     return false;
   }
 
-  uint32 src_row_pitch = 3 * src_width;
+  //uint32 src_row_pitch = 3 * src_width;
   uint32 dst_row_pitch = 3 * dst_width;
   uint32 buffer_size = dst_row_pitch * src_height;
   uint32 dst_image_size = dst_row_pitch * dst_height;
